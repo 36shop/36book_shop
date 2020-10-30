@@ -131,7 +131,7 @@
           <el-input v-model="addFrom.address"></el-input>
         </el-form-item>
       </el-form>
-      <!-- 底部区-->
+      <!-- 底部区-->， 
       <span slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="addUser">确 定</el-button>
@@ -402,11 +402,11 @@ export default {
         const { data: res } = await this.$http.post('/addUser',this.addFrom)
         console.log(this.addFrom);
         console.log(res);
-        // if (res.code == 1) {
-        //   this.$message.error('添加用户失败！')
-        //   console.log(res);
-        // }
-        // this.$message.success('添加用户成功！')
+        if (res.code == 1) {
+          this.$message.error('添加用户失败！')
+          console.log(res);
+        }
+        this.$message.success('添加用户成功！')
         //隐藏添加用户的对话框
         this.addDialogVisible = false
         //重新获取用户列表数据
