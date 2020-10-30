@@ -3,7 +3,7 @@
     <!-- 头部区域-->
     <el-header>
       <div>
-        <img src="../assets/heima.png" alt="" />
+        <img src="../assets/logo1.png" alt="" class="image"/>
         <span>书城后台管理系统</span>
       </div>
       <el-button type="info" @click="logout">退出</el-button>
@@ -11,7 +11,7 @@
     <!-- 页面主体区域-->
     <el-container>
       <!-- 侧边栏-->
-      <el-aside width="isCollapse ? '64px' : '200px'">
+      <el-aside :width="isCollapse ? '64px' : '200px'">
         <div class="toggle-button" @click="toggleCollapse">|||</div>
         <!--侧边栏菜单-->
         <!--开启路由模式-->
@@ -35,11 +35,17 @@
               <span>管理员管理</span>
             </template>
             <!--二级菜单-->
-            <el-menu-item index="1-4-1">
+            <el-menu-item index="admin">
               <!--图标-->
               <i class="el-icon-location"></i>
               <!--文本-->
               <span>管理员信息</span>
+            </el-menu-item>
+            <el-menu-item index="11">
+              <!--图标-->
+              <i class="el-icon-user"></i>
+              <!--文本-->
+              <span>权限管理</span>
             </el-menu-item>
           </el-submenu>
           <!--             2          -->
@@ -194,5 +200,9 @@ export default {
   text-align: center;
   letter-spacing: 0.2em;
   cursor: pointer;
+}
+.image{
+  width: 200px;
+  height: 50px;
 }
 </style>

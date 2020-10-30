@@ -3,7 +3,7 @@
     <div class="login_box">
       <!-- 头像区域 -->
       <div class="avatar_box">
-        <img src="../assets/logo.png" alt="" />
+        <img src="../assets/logo2.jpg" alt="" />
       </div>
       <!-- 登录表单区域 -->
       <el-form
@@ -44,8 +44,8 @@ export default {
     return {
       // 这是登录表单的数据绑定对象
       loginForm: {
-        username: '123',
-        password: 'lisi',
+        username: 'admin1',
+        password: '123',
       },
       // 这是表单的验证规则对象
       loginFormRules: {
@@ -79,7 +79,7 @@ export default {
     login() {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) return
-        const { data: res } = await this.$http.get('/user/login', {params:this.loginForm})
+        const { data: res } = await this.$http.get('/login',{params: this.loginForm})
         console.log(res)
         if (res.code == 1) return this.$message.error(res.msg)
         this.$message.success('登陆成功！')
@@ -123,7 +123,7 @@ export default {
     transform: translate(-50%, -50%);
     background-color: #fff;
     img {
-      width: 100%;
+      width: 130px;
       height: 100%;
       border-radius: 50%;
       background-color: #eee;

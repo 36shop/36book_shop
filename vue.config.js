@@ -1,19 +1,18 @@
-// Axios跨域代理配置
-// module.exports = {
-//   devServer: {
-//     proxy: {
-//       "/api": {
-//         // 使用"/api"来代替"http://f.apiplus.c"
-//         // target: 'http://192.168.0.102:8080', // 源地址
-//         target: "http://192.168.43.48:8080/user/regit", // 源地址
-//         changeOrigin: true, // 改变源
-//         pathRewrite: {
-//           "^/api": ""// 路径重写
-//         }
-//       }
-//     }
-//   }
-//}
 module.exports = {
+  // 选项...
+  publicPath: './', //发布路径,用相对路径，不然会报错
+  lintOnSave: false, //是否开启eslint校验
+  devServer: {
+    proxy: { //配置代理，解决跨域请求后台数据的问题
+      '/api': {
+        target: 'http://127.0.0.1:8081', //后台接口
+        ws: true, //是否跨域
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api':'/'
+        }
+      }
+    }
+  },
   lintOnSave: false
 }
