@@ -79,7 +79,7 @@ export default {
     login() {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) return
-        const { data: res } = await this.$http.get('/login',{params: this.loginForm})
+        const { data: res } = await this.$http.post('/login', this.loginForm)
         console.log(res)
         if (res.code == 1) return this.$message.error(res.msg)
         this.$message.success('登陆成功！')

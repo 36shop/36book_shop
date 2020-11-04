@@ -61,7 +61,7 @@
             type="primary"
             icon="el-icon-edit"
             circle
-            @click="showEditDialog(scope.row.id)"
+            @click="showEditDialg(scope.row)"
           ></el-button>
           <!-- 删除按钮 -->
           <el-button
@@ -70,7 +70,7 @@
             type="danger"
             icon="el-icon-delete"
             circle
-            @click="removeUserById(scope.row.id)"
+            @click="removeUserById(scope.row.m_id)"
           ></el-button>
           <!-- 成功按钮 -->
           <!-- <el-tooltip
@@ -131,7 +131,7 @@
           <el-input v-model="addFrom.address"></el-input>
         </el-form-item>
       </el-form>
-      <!-- 底部区-->， 
+      <!-- 底部区-->，
       <span slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="addUser">确 定</el-button>
@@ -204,7 +204,7 @@ export default {
         mg_state: '',
         //搜索
         query: '',
-         //当前的页数
+        //当前的页数
         pageCurrent: 1,
         //当前每页显示多少条数据
         pageSize: 5,
@@ -231,19 +231,12 @@ export default {
       total: 0,
       //控制添加用户对话框的显示与隐藏
       addDialogVisible: false,
-      //添加用户的表单数据
-      // var params = qs.stringify({
-      //           key1: value1,
-      //           key2: value2,
-      //           key3: value3,
-      //        })
-
       addFrom: {
-        username: '凄凄切切去群',
-        password: '54987941651',
-        email: '111321@qq.com',
-        address:'大地',
-        mobile: '13799998888',
+        username: '',
+        password: '',
+        email: '',
+        address: '',
+        mobile: '',
       },
       //添加表单的验证规则对象
       addFromRules: {
@@ -270,15 +263,20 @@ export default {
           { validator: checkEmail, trigger: 'blur' },
         ],
         address: [{ required: true, message: '请输入地址', trigger: 'blur' }],
-        // mobile: [
-        //   { required: true, message: '请输入手机', trigger: 'blur' },
-        //   { validator: checkMobile, trigger: 'blur' },
-        // ],
+        mobile: [
+          { required: true, message: '请输入手机', trigger: 'blur' },
+          { validator: checkMobile, trigger: 'blur' },
+        ],
       },
       //控制修改用户对话框的显示与隐藏
       editDialogVisible: false,
       //查询到的用户信息对象
-      editForm: {},
+      editForm: {
+        username: '',
+        email: '',
+        mobile: '',
+        adress: ''
+      },
       //修改表单的验证规则对象
       editFormRules: {
         email: [
@@ -289,7 +287,7 @@ export default {
           { required: true, message: '请输入用户手机', trigger: 'blur' },
           { validator: checkMobile, trigger: 'blur' },
         ],
-        adresaddress: [
+        address: [
           { required: true, message: '请输入地址', trigger: 'blur' },
         ],
       },
@@ -312,7 +310,7 @@ export default {
         console.log(res)
       }
       this.userlist = res.data.list
-      this.total=res.data.totalCount
+      this.total = res.data.totalCount
       console.log(res)
     },
     // pageChange(page){
@@ -331,33 +329,33 @@ export default {
     //   console.log(res);
     // },
     // handleSizeChange: function(size) {
-		// 		this.pageSize = size;
-		// 		console.log(this.pageSize); //每页下拉显示数据
-		// 		this.searchByPage(this.pageCurrent, this.pageSize);
-		// 	},
-		// 	handleCurrentChange: function(currentPage) {
-		// 		this.pageCurrent = pageCurrent;
-		// 		console.log(this.pageCurrent); //点击第几页
-		// 		this.searchByPage(this.pageCurrent, this.pageSize);
+    // 		this.pageSize = size;
+    // 		console.log(this.pageSize); //每页下拉显示数据
+    // 		this.searchByPage(this.pageCurrent, this.pageSize);
+    // 	},
+    // 	handleCurrentChange: function(currentPage) {
+    // 		this.pageCurrent = pageCurrent;
+    // 		console.log(this.pageCurrent); //点击第几页
+    // 		this.searchByPage(this.pageCurrent, this.pageSize);
 
-		// 	},
-		// 	searchByPage(currentPage, pageSize) {
-		// 		var demo = new URLSearchParams()
-		// 		demo.append("page", pageCurrent);
-		// 		demo.append("size", pageSize)
-		// 		axios.post('PageUser', demo).then((response) => {
-		// 			if (response.data.code == 0) {
-		// 				//this.total=response.data.data.totalElements//数据库中商品总条数
-		// 				console.log("分页查询的数据：", response.data.data.content)
-		// 				this.userlist = response.data.data.content
-		// 			} else {
-		// 				console.log("查询失败原因：", response.data.message)
-		// 			}
-		// 		}).catch((error) => {
-		// 			console.log("查询失败的原因：", error)
-		// 		})
+    // 	},
+    // 	searchByPage(currentPage, pageSize) {
+    // 		var demo = new URLSearchParams()
+    // 		demo.append("page", pageCurrent);
+    // 		demo.append("size", pageSize)
+    // 		axios.post('PageUser', demo).then((response) => {
+    // 			if (response.data.code == 0) {
+    // 				//this.total=response.data.data.totalElements//数据库中商品总条数
+    // 				console.log("分页查询的数据：", response.data.data.content)
+    // 				this.userlist = response.data.data.content
+    // 			} else {
+    // 				console.log("查询失败原因：", response.data.message)
+    // 			}
+    // 		}).catch((error) => {
+    // 			console.log("查询失败的原因：", error)
+    // 		})
 
-		// 	},
+    // 	},
     // 分页功能实现
     // async getUserPage(){
     //   const {data:res} = await this.$http.get('/PageUser',{params: this.queryInfo})
@@ -382,7 +380,7 @@ export default {
       this.queryInfo.pageCurrent = newPage
       this.getUserList()
     },
-    //监听添加用户对话框的关闭事件 
+    //监听添加用户对话框的关闭事件
     addDialogClosed() {
       this.$refs.addFromRef.resetFields()
     },
@@ -391,39 +389,43 @@ export default {
       this.$refs.addFromRef.validate(async (valid) => {
         console.log(valid)
         if (!valid) return
-        //可以发起添加用户网络请求
-        // let data = qs.stringify({
-        // a : JSON.stringify(this.addFrom)
-        // })
-        //var qs = require('qs'); 
-        //axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-        //let { username,password } = this;
-
-        const { data: res } = await this.$http.post('/addUser',this.addFrom)
-        console.log(this.addFrom);
-        console.log(res);
+        const { data: res } = await this.$http.post('/addUser', this.addFrom)
+        console.log(this.addFrom)
+        console.log(res)
         if (res.code == 1) {
           this.$message.error('添加用户失败！')
-          console.log(res);
+          console.log(res)
         }
         this.$message.success('添加用户成功！')
         //隐藏添加用户的对话框
         this.addDialogVisible = false
         //重新获取用户列表数据
         this.getUserList()
-        
       })
     },
     //展示编辑用户的对话框
-    async showEditDialog(id) {
-      //console.log(id);
-      // const { data: res } = await this.$http.get('' + id)
-      // if (res.code == 1) {
-      //   return this.$message.error('查询用户信息失败！')
-      // }
-      // this.editForm = res.data
+    showEditDialg(userinfo) {
       this.editDialogVisible = true
+      console.log(userinfo)
+      this.editForm = userinfo
     },
+    // showEditDialog(user){
+    //   console.log(user);
+    //   this.addFrom = user
+    //   this.editDialogVisible = true
+    // },
+    // async editUserInfo(){
+    //   const res = await this.$http.put(`upData/${this.addFrom.m_id}`,this.addFrom)
+    // },
+    //  async showEditDialog(m_id) {
+    //   console.log(m_id);
+    //   const { data: res } = await this.$http.post('/getById/' + Id)
+    //   if (res.code == 1) {
+    //     return this.$message.error('查询用户信息失败！')
+    //   }
+    //   this.editForm = res.data
+    //    this.editDialogVisible = true
+    //  },
     //监听修改用户对话框的关闭事件
     editDialogClosed() {
       this.$refs.editFormRef.resetFields()
@@ -431,13 +433,11 @@ export default {
     //修改用户信息并提交
     editUserInfo() {
       this.$refs.editFormRef.validate(async (valid) => {
-        if (!valid) return
-        //console.log(valid);
+        console.log(valid);
+        //if (!valid) return
         //发起修改用户信息的数据请求
-        const { data: res } = await this.$http.put('/upDate' + this.editForm.id, {
-          email: this.editForm.email,
-          mobile: this.editForm.mobile,
-        })
+        const { data: res } = await this.$http.put('/upDate',this.editForm)
+        console.log(res);
         if (res.code == 1) {
           return this.$message.error('更新用户信息失败！')
         }
@@ -445,32 +445,37 @@ export default {
       //关闭对话框
       this.editDialogVisible = false
       //刷新数据列表
+      
       this.getUserList()
       //提示修改成功
       this.$message.success('更新用户信息成功！')
     },
     //根据id删除对应的用户信息
-    async removeUserById(id){
+    async removeUserById(id) {
+      console.log(id);
       //弹框询问是否删除数据
-      const confirmResult= await this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+      const confirmResult = await this.$confirm(
+        '此操作将永久删除该用户, 是否继续?',
+        '提示',
+        {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
-          type: 'warning'
-        }).catch(err => err)  
-        //如果用户确认了删除，则返回值为字符串 confirm
-        //如果用户取消了删除，则返回值为字符串 cancel
-        //console.log(confirmResult);
-        if(confirmResult !== 'confirm'){
-          return this.$message.info('已取消删除！')
+          type: 'warning',
         }
-        const {data:res} = await this.$http.delete('/delete' + id)
-        if (res.code == 1) {
-          return this.$message.error('删除用户失败！')
-        }
-        this.$message.success('删除用户成功！')
-        this.getUserList()
-
-    }
+      ).catch((err) => err)
+      //如果用户确认了删除，则返回值为字符串 confirm
+      //如果用户取消了删除，则返回值为字符串 cancel
+      //console.log(confirmResult);
+      if (confirmResult !== 'confirm') {
+        return this.$message.info('已取消删除！')
+      }
+      const { data: res } = await this.$http.delete('/deleteUser?Id='+id)
+      if (res.code == 1) {
+        return this.$message.error('删除用户失败！')
+      }
+      this.$message.success('删除用户成功！')
+      this.getUserList()
+    },
   },
 }
 </script>

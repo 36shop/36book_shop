@@ -24,30 +24,6 @@
           active-text-color="#409eff"
           :collapse-transition="false"
         >
-          <!--           1              -->
-          <!--一级菜单-->
-          <el-submenu index="1">
-            <!--一级菜单的模板区域-->
-            <template slot="title">
-              <!--图标-->
-              <i class="el-icon-user-solid"></i>
-              <!--文本-->
-              <span>管理员管理</span>
-            </template>
-            <!--二级菜单-->
-            <el-menu-item index="admin">
-              <!--图标-->
-              <i class="el-icon-location"></i>
-              <!--文本-->
-              <span>管理员信息</span>
-            </el-menu-item>
-            <el-menu-item index="11">
-              <!--图标-->
-              <i class="el-icon-user"></i>
-              <!--文本-->
-              <span>权限管理</span>
-            </el-menu-item>
-          </el-submenu>
           <!--             2          -->
           <!--一级菜单-->
           <el-submenu index="2">

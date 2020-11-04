@@ -17,7 +17,6 @@ import axios from 'axios'
 axios.defaults.baseURL = 'http://192.168.43.48:8080'
 // 配置axios请求拦截器
 axios.interceptors.request.use(config => {
-  console.log(config);
   config.headers.Authorization = window.sessionStorage.getItem('token')
   return config;
 });
@@ -28,7 +27,7 @@ axios.interceptors.request.use(config => {
 //       }
 //        return request;
 //    });
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+//axios.defaults.headers.post['Content-Type'] = 'application/json';
 Vue.prototype.$http = axios
 
 // axios.interceptors.request.use(function (config) {
